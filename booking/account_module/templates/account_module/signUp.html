@@ -1,0 +1,112 @@
+{% load static %}
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/signUp.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"
+      integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/885b06fb9c.js"
+      crossorigin="anonymous"
+    ></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  </head>
+  <body>
+    <section style="background-color: cadetblue;">
+        <div class="container" style="min-height: 100vh; ">
+          <div class="row justify-content-center error"></div>
+            <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+                <div class="col-10 bg-light rounded mt-5">
+                    <div class="row justify-content-center p-4 align-items-center">
+                        <div class="col-md-6">
+                            <h3 class="text-center">ثبت نام</h3>
+                            <form action="/" class="mt-5" id="signUp-form">
+                                <div class="form-group">
+                                  <label for="email">ایمیل:</label>
+                                  <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="phoneNumber">شماره همراه:</label>
+                                  <input type="text" class="form-control" id="phoneNumber" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="pwd">رمز عبور:</label>
+                                  <input type="password" class="form-control" id="pwd" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="acceptPass">تکرار رمز عبور:</label>
+                                  <input type="password" class="form-control" id="acceptPass" required>
+                                </div>
+                                <div class="row justify-content-center mt-4">
+                                    <button type="submit" class="btn btn-success float-right mt-2 mt-md-0">ثبت نام</button>
+                                </div>
+                                <div class="text-center" style="margin-top: 100px;">
+                                    <p> اکانت دارید ؟ <a href={% url 'login' %}>اینجا کلیک کنید</a></p>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6 bg-img login-banner d-none d-md-block">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+                <div class="col-md-6"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        $(document).ready(function() {
+    $('#signUp-form').submit(function(event) {
+        event.preventDefault();
+			var form = $(this);
+			var url = form.attr('action');
+			var data = {
+				email: $('#email').val(),
+                password: $('#pwd').val(),
+				phone_number: $('#phoneNumber').val()
+			};
+        $.ajax({
+				type: 'POST',
+				url: '/api/signup/',
+				data: data,
+				dataType: 'json',
+				success: function(response) {
+					$('#message').html('<p class="text-success">User registered successfully!</p>');
+                    window.location.href = '';
+				},
+				error: function(xhr, status, error) {
+					$('#message').html('<p class="text-danger">' + xhr.responseJSON.email[0] + '</p>');
+				}
+			});
+    });
+});
+    </script>
+
+{#    <script src="{% static 'js/signUp.js' %}"></script>#}
+{#    <script#}
+{#      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"#}
+{#      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"#}
+{#      crossorigin="anonymous"#}
+{#    ></script>#}
+{#    <script#}
+{#      src="https://cdn.rtlcss.com/bootstrap/v4.5.3/js/bootstrap.bundle.min.js"#}
+{#      integrity="sha384-40ix5a3dj6/qaC7tfz0Yr+p9fqWLzzAXiwxVLt9dw7UjQzGYw6rWRhFAnRapuQyK"#}
+{#      crossorigin="anonymous"#}
+{#    ></script>#}
+
+  </body>
+</html>

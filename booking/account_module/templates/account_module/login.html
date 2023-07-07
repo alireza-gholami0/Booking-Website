@@ -1,0 +1,155 @@
+{% load static %}
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"
+      integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/885b06fb9c.js"
+      crossorigin="anonymous"
+    ></script>
+      	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <section style="background-color: cadetblue;">
+    <div class="container" style="min-height: 100vh; ">
+      <div class="row justify-content-center error"></div>
+        <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+            <div class="col-10 bg-light rounded mt-5">
+                <div class="row justify-content-center p-4 align-items-center">
+                    <div class="col-md-6">
+                        <h3 class="text-center">ورود </h3>
+                        <form action="" class="mt-5" id="login-form">
+                            <div class="form-group">
+                              <label for="email">ایمیل:</label>
+                              <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="form-group">
+                              <label for="pwd">رمز عبور:</label>
+                              <input type="password" class="form-control" id="pwd" required>
+                            </div>
+                            <div class="mt-4">
+                                <div class="form-group form-check float-left">
+                                    <label class="form-check-label mt-2">
+                                        <input class="form-check-input" type="checkbox">  من را بخاطر بسپار
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary float-right mt-2 mt-md-0">ورود</button>
+                            </div>
+                            <div class="text-center" style="margin-top: 100px;">
+                                <p>آیا اکانت ندارید ؟ <a href={% url 'signup' %}>اینجا کلیک کنید</a></p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6 bg-img login-banner d-none d-md-block">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6"></div>
+            </div>
+        </div>
+    </div>
+</section>
+  </body>
+{#<script>#}
+{##}
+{#$(document).ready(function() {#}
+{#		$('#login-form').submit(function(event) {#}
+{#			event.preventDefault();#}
+{#			var form = $(this);#}
+{#			var url = form.attr('action');#}
+{#			var data = {#}
+{#				email: $('#email').val(),#}
+{#				password: $('#pwd').val()#}
+{#			};#}
+{#			$.ajax({#}
+{#				type: 'POST',#}
+{#				url: '/api/login/',#}
+{#				data: data,#}
+{#				dataType: 'json',#}
+{#				success: function(response) {#}
+{#					localStorage.setItem('access_token', response.access);#}
+{#					localStorage.setItem('refresh_token', response.refresh);#}
+{#					$('#message').html('<p class="text-dark">' + data.password + '</p>');#}
+{#                    window.location.href = 'signup/';#}
+{#				},#}
+{#				error: function(xhr, status, error) {#}
+{#					$('#message').html('<p class="text-danger">' + data.password + '</p>');#}
+{#				}#}
+{#			});#}
+{#		});#}
+{#	});#}
+{##}
+{#</script>#}
+
+<script>
+    const error = document.getElementsByClassName("error")[0];
+const loginForm = document.getElementById("login-form");
+
+function handleSubmit(e) {
+  e.preventDefault();
+
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("pwd").value;
+
+  var data = {
+    email: email,
+    password: password
+  };
+
+  $.ajax({
+    type: 'POST',
+    url: '/api/login/',
+    data: data,
+    dataType: 'json',
+    success: function (response) {
+      localStorage.setItem('access_token', response.access);
+      localStorage.setItem('refresh_token', response.refresh);
+      $('#message').html('<p class="text-dark">' + data.password + '</p>');
+      window.location.href = 'signup/';
+    },
+    error: function (xhr, status, error) {
+      error.innerHTML = `
+        <div class="toast" data-autohide="false">
+        <div class="toast-header bg-danger">
+          <strong class="mr-auto text-white">خطا</strong>
+          <button type="button" class="close" style="margin-right:auto;" data-dismiss="toast">&times;</button>
+        </div>
+        <div class="toast-body">
+         ایمیل یا رمز عبور اشتباه است
+        </div>
+      </div>`;
+      $(".toast").toast({ autohide: false }).toast("show");
+    }
+  });
+};
+
+loginForm.addEventListener("submit", handleSubmit);
+</script>
+
+
+{#  <script src="{% static 'js/login.js' %}"></script>#}
+{#  <script#}
+{#    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"#}
+{#    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"#}
+{#    crossorigin="anonymous"#}
+{#  ></script>#}
+{#  <script#}
+{#    src="https://cdn.rtlcss.com/bootstrap/v4.5.3/js/bootstrap.bundle.min.js"#}
+{#    integrity="sha384-40ix5a3dj6/qaC7tfz0Yr+p9fqWLzzAXiwxVLt9dw7UjQzGYw6rWRhFAnRapuQyK"#}
+{#    crossorigin="anonymous"#}
+{#  ></script>#}
+
+</html>
