@@ -1,0 +1,39 @@
+.section-img {
+    background-image: url("../images/sea.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 70vh;
+    
+}
+
+.nav-pills .nav-item .nav-link[aria-selected="true"] {
+    background-color: black;
+    color: white;
+  }
+
+@font-face {
+    font-family: Iransans;
+    src: url("../fonts/FontsFree-Net-ir_sans.ttf");
+  }
+  
+* {
+    font-family: Iransans;
+    font-size: 15px;
+}
+  
+.space {
+    line-height: 2.5;
+}
+
+.about-flight {
+    display: block;
+}
+
+.about-train {
+    display: none;
+}
+
+.about-hotel{
+    display: none;
+}

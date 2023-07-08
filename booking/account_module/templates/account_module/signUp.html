@@ -81,12 +81,12 @@
 			};
         $.ajax({
 				type: 'POST',
-				url: '/api/signup/',
+				url: '{% url 'api_signup' %}',
 				data: data,
 				dataType: 'json',
 				success: function(response) {
 					$('#message').html('<p class="text-success">User registered successfully!</p>');
-                    window.location.href = '';
+                    window.location.href = '{% url 'login' %}';
 				},
 				error: function(xhr, status, error) {
 					$('#message').html('<p class="text-danger">' + xhr.responseJSON.email[0] + '</p>');

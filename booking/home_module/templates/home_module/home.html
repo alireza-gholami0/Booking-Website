@@ -1,0 +1,350 @@
+{% load static %}
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link
+      rel="stylesheet"
+      href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"
+      integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/885b06fb9c.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
+    <script type="text/javascript" src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+  </head>
+  <body>
+    <nav>
+
+      <nav class="navbar navbar-expand-sm bg-white sticky-top shadow-sm">
+      <a class="navbar-brand text-danger" href="#"> قاصدک</a>
+      <div class="ml-auto">
+          {% if request.user.is_authenticated %}
+            <a href='{% url 'profile' %}' class="btn btn-primary"><i class="fa-solid fa-user mr-2"></i> پروفایل</a>
+            <a  href='{% url 'logout' %}' class="btn btn-danger"><i class="fa fa-outdent mr-2"></i>خروج</a>
+      {% else %}
+              <a href='{% url 'signup' %}' class="btn btn-success"><i class="fa-solid fa-user-plus mr-2"></i>ثبت نام</a>
+              <a  href='{% url 'login' %}' class="btn btn-primary"><i class="fa fa-user mr-2"></i>ورود</a>
+      {% endif %}
+
+      </div>
+    </nav>
+    
+    <section>
+        <div class="container-fluid mt-5">
+          <div class="row justify-content-center bg-img section-img">
+            <div class="col-lg-6 my-5">
+              <div class="card shadow">
+                <div class="card-body">
+                  <div class="text-center">
+{#                    <img src="{% static 'images/b1.svg' %}" class="img-fluid banner" alt=""/>#}
+                  </div>
+                  <ul class="nav nav-pills nav-fill mt-4" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="pills-plane-tab" data-toggle="pill" href="#pills-flight" role="tab" aria-controls="pills-flight" aria-selected="true">
+                        <i class="fas fa-plane mr-2 text-warning"></i> بلیط هواپیما
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-train-tab" data-toggle="pill" href="#pills-train" role="tab" aria-controls="pills-train" aria-selected="false">
+                        <i class="fas fa-train mr-2 text-warning"></i> بلیط قطار
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-hotel-tab" data-toggle="pill" href="#pills-hotel" role="tab" aria-controls="pills-hotel" aria-selected="false">
+                        <i class="fas fa-hotel text-warning mr-2"></i> رزرو هتل
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content mt-4" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-flight" role="tabpanel" aria-labelledby="pills-flight-tab">
+                      <div class="card bg-light p-4 rounded">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="plane-origin-city">مبدا:</label>
+                              <input type="text" class="form-control" id="plane-origin-city">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="plane-dest-city">مقصد:</label>
+                              <input type="text" class="form-control" id="plane-dest-city">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="plane-start-date">تاریخ رفت:</label>
+                              <input data-jdp class="form-control" id="plane-start-date">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="plane-end-date">تاریخ برگشت:</label>
+                              <input data-jdp class="form-control" id="plane-end-date">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="plane-guest">تعداد مسافر:</label>
+                              <select class="form-control" id="plane-guest">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6 text-center mt-4">
+                            <button class="btn btn-success px-5 mt-2">جستجو</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-hotel" role="tabpanel" aria-labelledby="pills-hotel-tab">
+                      <div class="card bg-light p-4 rounded">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="hotel-city">شهر:</label>
+                              <input type="text" class="form-control" id="hotel-city">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="hotel-start-date">تاریخ ورود:</label>
+                              <input data-jdp class="form-control" id="hotel-start-date">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="hotel-end-date">تاریخ خروج:</label>
+                              <input data-jdp class="form-control" id="hotel-end-date">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="hotel-guest">تعداد افراد:</label>
+                              <select class="form-control" id="hotel-guest">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 text-center">
+                            <button class="btn btn-success px-5">جستجو</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-train" role="tabpanel" aria-labelledby="pills-train-tab">
+                      <div class="card bg-light p-4 rounded">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="train-origin-city">مبدا:</label>
+                              <input type="text" class="form-control" id="train-origin-city">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="train-dest-city">مقصد:</label>
+                              <input type="text" class="form-control" id="train-dest-city" >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="train-start-date">تاریخ رفت:</label>
+                              <input data-jdp class="form-control" id="train-start-date">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="train-end-date">تاریخ برگشت:</label>
+                              <input data-jdp class="form-control" id="train-end-date">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="train-guest">تعداد مسافر:</label>
+                              <select class="form-control" id="train-guest">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6 text-center mt-4">
+                            <button class="btn btn-success px-5 mt-2">جستجو</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section class="mt-5">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-4">
+              <img src="{% static 'images/b1.svg' %}" class="img-fluid"/>
+              <p class="text-center mt-5">قاصدک ۲۴ تضمین ارائه بلیط هواپیما در کلیه مسیرها و شرکتهای هواپیمایی کشور با نرخ های مختلف را می‌دهد.</p>
+            </div>
+            <div class="col-md-4">
+              <img src="{% static 'images/b2.svg' %}" class="img-fluid"/>
+              <p class="text-center mt-5">کلیه مراحل خرید بلیط هواپیما از سایت قاصدک ۲۴ بصورت اینترنتی بوده و بلیط آن بسرعت بدست شما می‌رسد.</p>
+            </div>
+            <div class="col-md-4">
+              <img src="{% static 'images/b3.svg' %}" class="img-fluid"/>
+              <p class="text-center mt-5">تیم مجرب پشتیبانی قاصدک ۲۴ در تمام ۲۴ ساعت شبانه روز، آماده پاسخگویی به سوالات و مشکلات شماست.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <hr/>
+      <section class="about-flight mt-4">
+        <div class="container">
+            <h3>مزایای خرید بلیط هواپیما از قاصدک </h3>
+            <div class="bg-light rounded mt-4 p-4">
+              <p class="space">یکی از مهمترین مزایای خرید بلیط هواپیما از قاصدک 24 بهره‌مندی از فیلترهای هوشمند جستجو است که در آن امکان مرتب‌سازی بلیط‌ها بر اساس پارامترهای قیمت، ساعت حرکت، شرکت هواپیمایی، کلاس پروازی و... وجود دارد. بدین ترتیب می‌توانید در کمترین زمان بلیط ارزان هواپیما را برای سفرهای خود پیدا کرده و خریداری نمایید. یکی دیگر از مزایای استفاده از بلیط هواپیما قاصدک عدم نیاز به هیچگونه مراجعه حضوری و ثبت نام در سایت است که تنها با وارد کردن مبدا، مقصد و تاریخ پرواز صورت می‌گیرد. البته عضویت در سامانه قاصدک24 به شما امکان بهره‌مندی از یک پنل اختصاصی می‌دهد که با آن قادر به مشاهده بلیط‌های خریداری شده، پیگیری و حتی استرداد آنلاین آن‌ها خواهید بود. همچنین می‌توانید اعتبار پنل خود را برای خریدهای بعدی شارژ کنید تا دیگر نیازی به پرداخت مجدد از کارت‌های عضو شتاب نداشته باشید. در نهایت قابل ذکر است سامانه فروش بلیط هواپیما قاصدک24 با در اختیار داشتن تیمی مجرب از کارشناسان فروش، به صورت تمام وقت پاسخگوی خریداران خواهد بود و در تمامی مراحل سفر همراه شماست.</p>
+            </div>
+
+            <h3 class="mt-4">رزرو بلیط هواپیما از معتبرترین ایرلاین‌ها</h3>
+            <div class="bg-light rounded mt-4 p-4">
+              <p class="space">با قاصدک  می‌توانید از معتبرترین و بهترین شرکت‌های هواپیمایی مانند ماهان ایر، کیش ایر، معراج ایر، ایران ایر، آسمان ایر، هواپیمایی کاسپین و زاگرس بلیط هواپیما خریداری کنید. هرکدام از این ایرلاین‌ها ویژگی‌های منحصر‌به‌فرد خود را دارند و از محبوب‌ترین شرکت‌های هواپیمایی شناخته می‌شوند.</p>
+            </div>
+
+            
+            <h3 class="mt-4"> نکات مهم در خرید بلیط به صورت آنلاین</h3>
+            <div class="bg-light rounded mt-4 p-4">
+              <p class="space">۱- برخی از بلیط‌های هواپیما وجود دارند که با هزینه‌ی کمتری نسبت به سایرین ارائه می‌شوند و فقط در مسیرهای مشخصی وجود دارند. این بلیط‌ها را با عنوان بلیط هواپیما چارتری می‌توانید از قاصدک24 تهیه نمایید و هزینه‌های سفر خود را تا حد قابل توجهی کاهش دهید. برای این کار ابتدا مبدا، مقصد و تاریخ پرواز خود را انتخاب کرده و بر گزینه جستجو کلیک نمایید. در لیست نمایش‌داده شده بلیط‌های سیستمی و چارتری را به همراه ظرفیت آن‌ها مشاهده خواهید کرد. بدین ترتیب می‌توانید رزرو بلیط هواپیما خود را در زمان و مسیر مورد نظر به سادگی در میان انواع پروازهای داخلی و خارجی جستجو نموده و آن را با قیمتی ارزان و مناسب تهیه نمایید</p>
+              <hr/>
+              <p class="space">۲- یکی از دغدغه‌های همیشگی مسافران نحوه کنسلی بلیط بدون دردسر شناخته می‌شود که قاصدک 24 شرایط آن را مهیا کرده است. برای انجام آن تنها باید به پنل کاربری خود در سایت وارد شوید و بلیط هواپیمای خود را در لیست انتخاب نمایید. گزینه درخواست کنسلی را انتخاب کرده تا نهایت پس از گذشت 72 ساعت وجه به حساب شما واریز شود.</p>
+            </div>
+        </div>
+      </section>
+
+      <section class="about-train">
+        <div class="container">
+          <div class="row justify-content-center bg-light p-4 my-3 rounded">
+            <div class="col-md-6">
+              <h3 class="mb-5">خرید بلیط قطار کوپه دربست
+              </h3>
+              <p class="space">عوامل مختلفی می‌توانند قیمت بلیط قطار را کاهش یا افزایش دهند. یکی از بهترین روش‌ها برای تهیه بلیط ارزان، دربست کردن کوپه است. شما با خرید بلیط قطار کوپه دربست به ویژه در سفرهای خانوادگی و گروهی دیگر هزینه خدمات و پذیرایی را برای صندلی‌های خالی پرداخت نمی‌کنید و همین امر هزینه‌های شما را کاهش خواهد داد. همچنین از حریم خصوصی بیشتری بهره‌مند می‌شوید و لحظات به یادماندنی‌تری را تجربه خواهید کرد. برای این منظور قاصدک 24 شرایطی را فراهم کرده است که تنها با انتخاب گزینه کوپه دربست در خرید آنلاین بلیط قطار بتوانید از مزایا و خدمات آن بهره‌مند شوید و در زمان کوتاهی بلیط دلخواه خود را دریافت کنید.</p>
+            </div>
+            <div class="col-md-6">
+              <img src="{% static 'images/train/koope-darbast1.jpg' %}" class="img-fluid"/>
+            </div>
+          </div>
+          <div class="row justify-content-center bg-light p-4 my-3 rounded">
+            <div class="col-md-6">
+              <img src="{% static 'images/train/khadamt-refahi1.jpg' %}" class="img-fluid"/>
+            </div>
+            <div class="col-md-6">
+              <h3 class="mb-5">خدمات رفاهی متنوع با گرفتن بلیط قطار
+              </h3>
+              <p class="space">همانقدر که صرفه‌جویی در هزینه‌ها اولویت دارد، بهره‌مندی از خدمات رفاهی مطلوب نیز از اهمیت بالایی برخوردار است. پس توصیه می‌کنیم همه تمرکز خود را روی داشتن سفری مقرون‌به‌صرفه نگذارید و بخشی از آن را معطوف بررسی امکانات رفاهی کنید. به عنوان مثال برای مسیرهای طولانی، قطارهای لوکس مانند نور و زندگی را انتخاب نمایید که از وسایل خواب و پذیرایی بهره‌مند هستند و برای مسافت‌های کوتاه‌تر از قطارهای اتوبوسی بهره ببرید.</p>
+            </div>
+          </div>
+          <div class="row justify-content-center bg-light p-4 my-3 rounded">
+            <div class="col-md-6">
+              <h3 class="mb-5">تهیه بلیط قطار برای مسیرهای پرتردد
+              </h3>
+              <p class="space">در کشور مسیرهای زیادی وجود دارد که تردد در آن‌ها نسبت به سایرین بیشتر بوده و همین امر سبب می‌شود تهیه بلیط به ویژه برای ایام پیک سفر دشوار باشد. در صورتی که با قاصدک 24 دیگر نگران پربودن ظرفیت‌ها نخواهید بود و امکان خرید آنلاین بلیط قطار را برای مسیرهای پرتدد تهران مشهد، شیراز تهران، اصفهان مشهد، تبریز تهران و غیره خواهید داشت. حتی می‌توانید بلیط خود را از روزهای قبل پیش فروش کنید و با خیال آسوده برای سفر برنامه‌ریزی نمایید.</p>
+            </div>
+            <div class="col-md-6">
+              <img src="{% static 'images/train/masir-por-taradod.jpg' %}" class="img-fluid"/>
+            </div>
+          </div>
+          <div class="row">
+            <h3 class="my-3">فروش بلیط انواع قطارهای ایران
+            </h3>
+            <div class="bg-light rounded p-4">
+              <p class="space">فروش بلیط قطار از تمامی شرکت‌های مسافربری به صورت کاملا اینترنتی در قاصدک وجود دارد. با استفاده از این سامانه نه تنها به لیست کاملی از بلیط‌ها در تمامی مسیرهای ریلی ایران دسترسی پیدا می‌کنید بلکه می‌توانید بلیط قطار خود را از شرکت دلخواه تهیه کنید. به طور کلی 3 شرکت اصلی مسافربری در ایران وجود دارند که شامل رجا (راه آهن ایران)، فدک و سفیر ریل آسیا می‌شوند. سایر شرکت‌ها مانند قطارهای جوپار، قطار نورالرضا، راه آهن شرقی بنیاد و... زیرمجموعه‌ی شرکت‌های اصلی هستند. برای گرفتن بلیط قطار رجا، فدک و سایرین پس از جستجوی بلیط خود در قاصدک 24، از پنجره‌های سمت چپ صفحه استفاده کنید و نوع شرکت مسافربری موردنظر را انتخاب نمایید. در ادامه به معرفی انواع قطارهای مسافربری می‌پردازیم.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-hotel">
+        <div class="container">
+          <img src="{% static 'images/hotel/HotelHomeBg.jpg' %}" class="img-fluid"/>
+          <h3 class="my-4">رزرو هتل با تخفیف
+          </h3>
+          <div class="bg-light p-4 rounded">
+            <p class="space">رزرو هتل و انتخاب مناسب‌ترین محل اقامت یکی از اقدامات مهم سفر شناخته می‌شود که همواره دغدغه‌ی مسافران بوده است. در گذشته باید ابتدا خود را به مقصد می‌رساندید و جستجوهای بسیاری برای یافتن هتلی مناسب می‌کردید. در نهایت نیز ممکن بود محل متناسبی پیدا نکنید و با هزینه‌های بالا مجبور به اقامت شوید. این موضوع زمانی پررنگ‌تر می‌شد که در زمان پیک سفر مانند ایام نوروز به یکی از مقاصد محبوب داخلی مانند شیراز، اصفهان، کیش، مشهد یا... سفر می‌کردید. در این شرایط اگر از قبل هتل رزرو نمی‌کردید؛ با گشت و گذارهای طولانی در سطح شهر نیز موفق به یافتن هتل دلخواه خود نمی‌شدید.
+              امروزه قاصدک24 با رزرو آنلاین هتل در سایت خود، به این نگرانی‌ها خاتمه داده است و پیداکردن مکانی مناسب برای سفر دیگر دغدغه شناخته نمی‌شود. از این رو شما می‌توانید رزرو هتل خود را به صورت آنلاین و در کمترین زمان ممکن به انجام برسانید؛ به لیست کاملی از هتل‌ها در سرتاسر ایران دسترسی پیدا کنید و از قیمت اقامت در آن‌ها نیز باخبر شوید.</p>
+          </div>
+          <h3 class="my-4">امکان رزرو هتل در قاصدک 
+          </h3>
+          <div class="bg-light p-4 rounded">
+            <p class="space">برای رزرو آنلاین هتل در قاصدک 24 تنها باید نام شهر یا هتل مورد نظر خود را به همراه تاریخ ورود و خروج در سایت وارد کنید و بر گزینه جستجو کلیک نمایید. با این کار فهرست تمامی هتل‌های موجود در بازه انتخابی موردنظر نمایش داده خواهند شد. شما می‌توانید این لیست را با کمک فیلترهای جستجو براساس قیمت هتل، نوع و ستاره آن طبقه بندی کنید. انواع هتل در قاصدک24 شامل رزرو هتل آپارتمان، هتل‌های 5 ستاره، هتل‌های لوکس، هتل‌های ارزان، مهمانسرا، اقامتگاه بومگردی، ویلا و... می‌شوند. اگر به دنبال رزرو ارزان هتل هستید؛ گزینه مرتب سازی را برروی بالاترین تخفیف و کمترین قیمت قرار دهید تا از رزرو هتل با تخفیف نیز بهره‌مند شوید.</p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="bg-secondary mt-3" style="min-height: 10vh;">
+        <div class="container">
+        <div class="row text-white">
+          <div class="col-md-5">
+            <div class="row mt-4">
+              <i class="fa-sharp fa-solid fa-location-dot mr-3"></i>
+              <p>تهران - خیابان بهشتی - خیابان سرافراز - خیابان پنجم </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row mt-4">
+              <i class="fa-solid fa-envelope mr-3 mt-1"></i>
+              <p>support@ghasedak.com
+              </p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row mt-4">
+              <i class="fa-solid fa-phone mr-3"></i>
+              <p>021-1239123</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </footer>
+
+    <script src="{% static 'js/home.js' %}"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.rtlcss.com/bootstrap/v4.5.3/js/bootstrap.bundle.min.js"
+      integrity="sha384-40ix5a3dj6/qaC7tfz0Yr+p9fqWLzzAXiwxVLt9dw7UjQzGYw6rWRhFAnRapuQyK"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

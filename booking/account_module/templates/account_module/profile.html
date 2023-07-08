@@ -1,0 +1,100 @@
+{% load static %}
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"
+      integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe"
+      crossorigin="anonymous"
+    />
+{#    <script#}
+{#      src="https://kit.fontawesome.com/885b06fb9c.js"#}
+{#      crossorigin="anonymous"#}
+{#    ></script>#}
+{#    <link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">#}
+{#    <script type="text/javascript" src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"></script>#}
+  </head>
+  <body>
+    <section style="background-color: turquoise;">
+    <div class="container">
+        <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+            <div class="col-12 col-md-8">
+                <h3 class="text-center mb-4"> حساب کاربری</h3>
+                <form id="profileForm" class="p-5 rounded" style="background-color:lightpink">
+                  <div class="form-group">
+                    <label for="fullName">نام و نام خانوادگی:</label>
+                    <input type="text" class="form-control" id="fullName" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">ایمیل:</label>
+                    <input type="email" class="form-control" id="email" value={{ user.email }} required>
+                  </div>
+                  <div class="form-group">
+                    <label for="phone-number">شماره همراه:</label>
+                    <input type="number" class="form-control" id="phone-number" value= {{ user.phone_number }} required>
+                  </div>
+                  <div class="form-group">
+                    <label for="address"> آدرس:</label>
+                    <input type="text" class="form-control" id="address" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="birth-date"> تاریخ تولد:</label>
+                    <input data-jdp class="form-control" id="birth-date" required>
+                  </div>
+                  <div class="float-right">
+                    <button type="submit" class="btn btn-primary">ذخیره</button>
+                    <button type="button" class="btn btn-secondary" onclick="editProfile()">ویرایش</button>
+                  </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </section>
+<script>
+  $(document).ready(function () {
+    $('#profileForm').submit(function (event) {
+        event.preventDefault();
+        var form = $(this);
+        var url = form.attr('action');
+      var data = {
+        full_name: $('#fullName').val(),
+        email: $('#email').val(),
+        phone_number: $('#phone-number').val(),
+        address: $('#address').val(),
+        birth_date: $('#birth-date').val(),
+      };
+
+      $.ajax({
+        type: 'POST',
+        url: "{% url 'api_profile' %}",
+        data: data,
+          dataType: 'json',
+        success: function (response) {
+          $('#message').html('<p class="text-success">User registered successfully!</p>');
+            window.location.href = '{% url 'home' %}';
+
+        },
+        error: function (xhr, status, error) {
+          $('#message').html('<p class="text-danger">' + xhr.responseJSON.email[0] + '</p>');
+        },
+      });
+    });
+  });
+</script>
+{#    <script src="{% static 'js/profile.js' %}"></script>#}
+{#    <script#}
+{#      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"#}
+{#      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"#}
+{#      crossorigin="anonymous"#}
+{#    ></script>#}
+{#    <script#}
+{#      src="https://cdn.rtlcss.com/bootstrap/v4.5.3/js/bootstrap.bundle.min.js"#}
+{#      integrity="sha384-40ix5a3dj6/qaC7tfz0Yr+p9fqWLzzAXiwxVLt9dw7UjQzGYw6rWRhFAnRapuQyK"#}
+{#      crossorigin="anonymous"#}
+{#    ></script>#}
+  </body>
+</html>

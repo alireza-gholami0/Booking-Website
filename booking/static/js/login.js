@@ -9,7 +9,7 @@
 //
 //   if (email === "test@email.com" && password === "password123") {
 //     console.log('fix');
-//     window.location.href = "../index.html";
+//     window.location.href = "../home.html";
 //   } else {
 //     error.innerHTML = `
 //         <div class="toast" data-autohide="false">
